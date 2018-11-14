@@ -1,0 +1,19 @@
+//most of these utilize regex to assist in the clean up
+//they are direct call methods and I used in these examples zip (all numbers), city (all characters), addresses (both numbers and characters)
+//check'em out!
+
+def cleanStrings(s):
+    pattern = re.compile('[^a-zA-Z ]')
+    return pattern.sub('', s)
+def cleanZip(z):
+    pattern = re.compile('[^0-9-]')
+    return pattern.sub('', z)
+def cleanAddress(s):
+    pattern = re.compile('[^0-9a-zA-Z ]')
+    return pattern.sub('', s)
+def cleanCity(city):
+    loc = city.rfind('/')
+    return city[loc:]
+def cleanNames(s):
+    pattern = re.compile('[^0-9a-zA-Z &]')
+    return pattern.sub('',s)
