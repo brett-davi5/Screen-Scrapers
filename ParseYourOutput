@@ -1,0 +1,56 @@
+//Go to the url then start pulling the various things you want from the html
+//Notice the difference of looking through the .script stuff versus the html stuff
+
+//This also prints to the console if there's an issue
+
+def parseYourStuff():
+ 
+   makeRequest = True
+   content = '' #content = (blank)
+   if(makeRequest): #if makeRequest =  true
+      response = getResponse('url, param, 0) #get the response of the URL
+            if(response == None): #if response = nothing (null, None, etc.)
+                    continue #carry on
+                content = response.content #content = the content of the response
+            else: #if makeRequest = false
+                content = open("C:\\YourStuff\\MoreStuff".txt", "r").read() #open the file path to read the content and place it into content
+                
+            tree = html.fromstring(content) #formats the html into a string tree nice and clean
+            treeStuff = tree.xpath('//ul[@class="list-group"]//li//a/@href') #starts reading the tree path for the whatever you want
+            for stuff in treeStuff: 
+                innerTree = html.fromstring(stuff) #create a tree within stuff
+                spanGrouping = innerTree.xpath('//div[@class="result-item"]') #
+                javaScriptStuff = innerTree.xpath('//script[@type="text/javascript"]/text()')
+
+                dictionaryOfStuff = dict() #create a dictionary of stuff you want
+                
+                for item in javaScriptStuff: #for every javaScriptStuff 
+                    if("LI.Data.results = [{\"" not in javaScriptStuff):
+                        continue
+                    subSection = item.find('LI.Data.results')
+                    JSONSection = item[subSection:]
+                    subSection2 = JSONSection.find('[')
+                    subSection3 = JSONSection.find(']')
+                    JSONSection2 = JSONSection[subSection2:subSection3+1]
+                    jString = json.loads(str(JSONSection2))
+                    for nd in jString: #for every node in the jString (which is the item from LI.Data.results)
+                        keyName = nd['somethingYourLookingFor']
+                        keyValue = EmailContactName(nd['somethingYourLookingFor'], nd['otherThingsYourLookingFor'])
+                        dictionaryOfStuff.update({keyName:keyValue}) #add a key:value pair of name:email to the dictionaryOfStuff
+                        
+                for res in spanGrouping:
+                    somethingYouWant1 = res.xpath('./span[@itemprop="whatever"]//h3/text()') 
+                    somethingYouWant2 = res.xpath('./div[@itemprop="whatever2"]//div[@itemprop="whatever2.1"]/text()') 
+                    somethingYouWant3 = res.xpath('./div[@itemprop="whatever3"]//div//span[@itemprop="whatever3.1"]/text()')
+                    
+                    try:
+                        p=''
+                        if(len(somethingYouWant3) > 0 ):
+                            p = somethingYouWant3[0]
+                        
+                        a = SomeSortofObjectYourCreated(inputYourArgumentsHereForYourObject)
+                        result.append(a) #pull and clean up information you want
+                    except IndexError:
+                        print(somethingYouWant[0], item)
+
+    return result
