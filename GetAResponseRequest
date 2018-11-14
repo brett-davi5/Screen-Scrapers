@@ -1,0 +1,10 @@
+//This function builds the session then goes to the url you're wishing to read the html
+
+
+def getResponse(url, obj, val):
+    session = requests.Session()#build a session
+    session.headers.update({'User-Agent': 'this is the user agent'}) #update header with user session details
+    response = session.get(url) #response = the url we're passing (ie., http://beAnEthicalProgrammer.com/') 
+    if(response.status_code != 200): #if no stable/good connection
+        return None #
+    FilePathManagment(obj, str(response.content), val) 
