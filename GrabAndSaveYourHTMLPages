@@ -1,0 +1,23 @@
+
+//this creates file locations for your output so you can better handle the pages and organization
+
+def grabAndSavePages(fileName, data, value):
+    if not os.path.exists('C:\\YourLocation'): #if path doesn't exist, make it in the directory C:\\
+        os.makedirs('C:\\YourLocation')
+        
+    if not os.path.exists('C:\\YourLocation\\YourPages'): #if path doesn't exist, make it in the YourLocation folder
+        os.makedirs('C:\\YourLocation\\YourPages')
+        
+    fp = 'C:\\YourLocation\\YourPages\\' #declare the string of the file path into the YourPages folder
+    
+    if value == 0 : #if the value from the getResponse() is 0, 1, or 2...
+        fp+='Stuff\\' #add Stuff to the string of the filePath
+        if not os.path.exists(fp): #if the path doesn't exist, let's make it
+            os.makedirs(fp)
+    if value == 1 : 
+        fp+='MoreStuff\\'#add MoreStuff to the file path
+        if not os.path.exists(fp):
+            os.makedirs(fp)
+    
+    with open(fp+cleanStrings(fileName)+".txt", 'a') as outtxt: #clean up the strings we're getting
+        outtxt.writelines(data)
