@@ -1,0 +1,15 @@
+
+//Simple python function for slapping your .csv into a specific location
+//The writer creates a .csv and writes information to it
+//This uses a '|' to separate values and delimits based off the comma (',')
+//See the writer.writerow for the column names
+//All the items in the results (the argument passed) are then thrown into the corresponding columns (see the number at the end of 'item')
+
+def writeCSV(results):
+    if not os.path.exists('C:\\YourStuff'):
+        os.makedirs('C:\\YourStuff')
+    with open('C:\\YourStuff\\MoreStuff.csv', 'w+') as outcsv:   
+            writer = csv.writer(outcsv, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
+            writer.writerow(['ColumnTitle1', 'ColumnTitle2', 'ColumnTitle3', 'ColumnTitle4', 'ColumnTitle5', 'ColumnTitle6', 'ColumnTitle7', 'ColumnTitle8'])
+            for item in results:
+                writer.writerow([item1, item2, item3, item4, item5, item6, item7, item8])
