@@ -8,7 +8,7 @@ def parseYourStuff():
    makeRequest = True
    content = '' #content = (blank)
    if(makeRequest): #if makeRequest =  true
-      response = getResponse('url, param, 0) #get the response of the URL
+      response = getResponse('url', param, 0) #get the response of the URL
             if(response == None): #if response = nothing (null, None, etc.)
                     continue #carry on
                 content = response.content #content = the content of the response
@@ -35,8 +35,8 @@ def parseYourStuff():
                     jString = json.loads(str(JSONSection2))
                     for nd in jString: #for every node in the jString (which is the item from LI.Data.results)
                         keyName = nd['somethingYourLookingFor']
-                        keyValue = EmailContactName(nd['somethingYourLookingFor'], nd['otherThingsYourLookingFor'])
-                        dictionaryOfStuff.update({keyName:keyValue}) #add a key:value pair of name:email to the dictionaryOfStuff
+                        keyValue = FunctionToLookForValue(nd['somethingYourLookingFor'], nd['otherThingsYourLookingFor'])
+                        dictionaryOfStuff.update({keyName:keyValue}) #add a key:value pair to the dictionaryOfStuff
                         
                 for res in spanGrouping:
                     somethingYouWant1 = res.xpath('./span[@itemprop="whatever"]//h3/text()') 
